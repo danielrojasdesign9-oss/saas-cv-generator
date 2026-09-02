@@ -73,10 +73,12 @@ def generate_docx(data, labels, filename):
         section.left_margin = Inches(0.65)
         section.right_margin = Inches(0.65)
 
-    NAVY = RGBColor(0x1E, 0x3D, 0x59)
-    GREEN = RGBColor(0x17, 0xB9, 0x78)
-    DARK_GRAY = RGBColor(0x2C, 0x3E, 0x50)
-    LIGHT_GRAY = RGBColor(0x55, 0x55, 0x55)
+    # Tema todo negro (base estándar ATS: negro puro, tipografía Helvetica/Arial)
+    BLACK = RGBColor(0x00, 0x00, 0x00)
+    NAVY = BLACK
+    GREEN = BLACK
+    DARK_GRAY = RGBColor(0x11, 0x11, 0x11)
+    LIGHT_GRAY = RGBColor(0x44, 0x44, 0x44)
     WATERMARK_RED = RGBColor(0xCC, 0x1F, 0x1F)
 
     # Watermark pronunciado para planes gratuitos (difícil de quitar)

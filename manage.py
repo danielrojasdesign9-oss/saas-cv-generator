@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
-Helper simple para el sistema de gestión por vacante.
+Helper simple para el sistema de gestiÃ³n por vacante.
 Uso:
   python manage.py add-vacancy --empresa "X" --rol "Y" --jd "..." 
   python manage.py list
@@ -16,10 +16,10 @@ VAC = os.path.join(BASE, "data", "vacancies.json")
 APP = os.path.join(BASE, "data", "applications.json")
 
 def load(p): 
-    return json.load(open(p, encoding="utf-8")) if os.path.exists(p) else []
+    return json.load(open(p, encoding='utf-8-sig')) if os.path.exists(p) else []
 
 def save(p, data): 
-    json.dump(data, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    json.dump(data, open(p, "w", encoding='utf-8-sig'), ensure_ascii=False, indent=2)
     print(f"[OK] {p}")
 
 def add_vacancy(empresa, rol, jd, url):
@@ -39,7 +39,7 @@ def update_status(app_id, estado):
             save(APP, apps)
             print(f"[OK] {app_id} -> {estado}")
             return
-    print(f"[WARN] no se encontró {app_id}")
+    print(f"[WARN] no se encontrÃ³ {app_id}")
 
 def recommend(app_id):
     apps = load(APP)
@@ -50,7 +50,7 @@ def recommend(app_id):
                 print(" -", r)
             print("\nPara aplicar en 1 clic, edita data/cv_es.json y cv_en.json con estas recomendaciones y corre: python generate_cv.py")
             return
-    print(f"[WARN] no se encontró {app_id}")
+    print(f"[WARN] no se encontrÃ³ {app_id}")
 
 def apply_one_click(app_id):
     apps = load(APP)
@@ -60,7 +60,7 @@ def apply_one_click(app_id):
             save(APP, apps)
             print(f"[OK] {app_id} marcado como aplicado en 1 clic. Regenera el CV vinculado (cv_id={a['cv_id']}).")
             return
-    print(f"[WARN] no se encontró {app_id}")
+    print(f"[WARN] no se encontrÃ³ {app_id}")
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()

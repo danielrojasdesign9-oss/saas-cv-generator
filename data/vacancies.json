@@ -6,5 +6,13 @@
     "url": "https://ejemplo.com/vacante/123",
     "jd_text": "Buscamos Data Engineer con Python, Spark, Airflow y Snowflake. Experiencia en pipelines y gobierno de datos.",
     "creada_en": "2026-09-02"
+  },
+  {
+    "id": "vac_823e64",
+    "empresa": "Bancolombia",
+    "rol": "Analista de Datos",
+    "jd_text": "Requiere SQL, Python, PowerBI y storytelling",
+    "url": "https://ejemplo.com/bancolombia",
+    "creada_en": "2026-09-02"
   }
 ]
