@@ -1,10 +1,164 @@
-﻿<!doctype html><html lang=es><head><meta charset=utf-8><title>CV Generator SaaS</title></head><body style='font-family:Helvetica,Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px'>
-<h1 style='color:#000'>CV Generator — Demo Pro (todo negro)</h1>
-<p>Tipografia base estandar: <b>Helvetica Neue / Helvetica / Arial</b> (ATS-friendly). Alternativa elegante: Garamond.</p>
-<p>Tema actual: <b>todo negro</b> (#000) — cabecera, titulos y secciones en negro puro.</p>
-<p>Flujo Pro: 1 CV pago unico 12 meses / 10 CVs suscripcion. Gestion por vacante con ATS + camino formativo y 1-clic.</p>
-<pre>python manage.py add-vacancy --empresa X --rol Y --jd &quot;...&quot;
-python manage.py list / recommend / apply-one-click
-python generate_cv.py</pre>
-<p>Deploy: vercel --prod (vercel.app)</p>
-</body></html>
+﻿<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CV Generator SaaS — Demo Pro</title>
+<style>
+  :root{--bg:#0a0a0a;--card:#111;--border:#222;--text:#f5f5f5;--muted:#999;--accent:#fff}
+  *{box-sizing:border-box}
+  body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;line-height:1.5}
+  header{border-bottom:1px solid var(--border);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg);z-index:10}
+  header h1{font-size:18px;margin:0;letter-spacing:1px}
+  .badge{background:#fff;color:#000;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
+  .wrap{max-width:1200px;margin:0 auto;padding:24px;display:grid;gap:24px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media(max-width:900px){.grid2{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+  .card h2{font-size:14px;text-transform:uppercase;letter-spacing:1px;margin:0 0 12px;color:var(--muted)}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  input,textarea,select{background:#000;color:#fff;border:1px solid #333;border-radius:8px;padding:10px;width:100%;font:inherit}
+  textarea{resize:vertical;min-height:80px}
+  label{font-size:12px;color:var(--muted);display:block;margin:8px 0 4px}
+  button{background:#fff;color:#000;border:0;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer}
+  button.secondary{background:transparent;color:#fff;border:1px solid #333}
+  button.small{padding:6px 10px;font-size:12px}
+  .muted{color:var(--muted);font-size:13px}
+  .vac-card{border:1px solid #222;border-radius:10px;padding:14px;margin:10px 0;background:#0f0f0f}
+  .status{font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid #333}
+  .status.enviado{color:#f5f5f5}.status.entrevista{color:#000;background:#fff;border-color:#fff}.status.rechazado{color:#ff6b6b}
+  .progress{height:6px;background:#222;border-radius:999px;overflow:hidden;margin:8px 0}
+  .progress i{display:block;height:100%;background:#fff}
+  .rec{background:#1a1a1a;border:1px dashed #333;border-radius:8px;padding:10px;margin:8px 0;font-size:13px}
+  .preview{border:1px solid #222;border-radius:8px;padding:16px;background:#fff;color:#000;min-height:300px}
+  .preview h3{margin:0 0 4px;font-size:18px;text-transform:uppercase}
+  .preview .title{font-size:11px;font-weight:700;text-transform:uppercase;margin-bottom:8px}
+  .swatch{width:24px;height:24px;border-radius:50%;border:2px solid #fff;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <h1>CV GENERATOR — DEMO PRO</h1>
+  <div style="display:flex;gap:12px;align-items:center">
+    <span class="muted">Todo negro • Helvetica/Arial (ATS)</span>
+    <span class="badge">PRO • 10 CVs • 12 meses</span>
+  </div>
+</header>
+<div class="wrap">
+  <div class="grid2">
+    <div class="card">
+      <h2>1. Personalización dummy (colores / tipos / espaciado)</h2>
+      <label>Color primario (todo negro por defecto)</label>
+      <div class="row" style="align-items:center">
+        <div class="swatch" style="background:#000" title="Negro" onclick="setColor('#000')"></div>
+        <div class="swatch" style="background:#1e3d59" title="Navy" onclick="setColor('#1e3d59')"></div>
+        <div class="swatch" style="background:#7c3aed" title="Violeta" onclick="setColor('#7c3aed')"></div>
+        <input id="colorPick" type="color" value="#000000" style="width:48px;height:32px;padding:2px" oninput="setColor(this.value)">
+        <span id="colorVal" class="muted">#000000</span>
+      </div>
+      <label>Tipografía base estándar</label>
+      <select id="fontPick" onchange="setFont(this.value)">
+        <option value="'Helvetica Neue',Helvetica,Arial,sans-serif">Helvetica / Arial — ATS (recomendada)</option>
+        <option value="Calibri, Arial, sans-serif">Calibri — ATS moderna</option>
+        <option value="Garamond, Georgia, serif">Garamond — elegante</option>
+      </select>
+      <label>Espaciado</label>
+      <div class="row">
+        <button class="small secondary" onclick="setSpacing('compact')">Compacto</button>
+        <button class="small secondary" onclick="setSpacing('normal')">Normal</button>
+        <button class="small secondary" onclick="setSpacing('amplio')">Amplio</button>
+      </div>
+      <p class="muted">Cambios en vivo en la preview. En Pro se guardan por CV.</p>
+    </div>
+    <div class="card">
+      <h2>Preview CV (Laura Gómez — Data Engineer)</h2>
+      <div id="preview" class="preview" style="--accent:#000">
+        <h3 id="pvName" style="color:var(--accent)">LAURA GÓMEZ</h3>
+        <div id="pvTitle" class="title" style="color:var(--accent)">INGENIERA DE DATOS</div>
+        <div style="font-size:12px;color:#444">laura.gomez@ejemplo.com | Madrid, España</div>
+        <hr style="border:0;border-top:2px solid var(--accent);margin:10px 0">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--accent)">Perfil profesional</div>
+        <div style="font-size:11px;margin:6px 0">Ingeniera de Datos con 5 años diseñando pipelines y plataformas escalables...</div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--accent);margin-top:10px">Experiencia</div>
+        <div style="font-size:11px"><b>Senior Data Engineer</b> | HealthData Labs — 2022–Presente</div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--accent);margin-top:10px">Habilidades</div>
+        <div style="font-size:11px">Python, SQL, Spark, Airflow, dbt, Kafka</div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button onclick="alert('PDF generado: Laura_Gomez_CV_ES.pdf (todo negro, sin watermark — Pro)')">Generar PDF</button>
+        <button class="secondary" onclick="alert('DOCX generado')">Generar DOCX</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>2. Gestión por vacante — flujo completo Pro</h2>
+    <p class="muted">Estudiante: 1 vacante a la vez. Profesional Pro: hasta 10 CVs vinculados a vacantes distintas, seguimiento y 1-clic.</p>
+    <div class="grid2">
+      <div>
+        <h3 style="font-size:13px;margin:0 0 8px">Añadir vacante</h3>
+        <label>Empresa</label><input id="vEmpresa" placeholder="Bancolombia">
+        <label>Rol</label><input id="vRol" placeholder="Analista de Datos">
+        <label>Descripción de la vacante (pega el texto)</label><textarea id="vJD" placeholder="Requiere SQL, Python, PowerBI y storytelling"></textarea>
+        <div class="row" style="margin-top:10px"><button onclick="addVacancy()">Añadir vacante</button></div>
+      </div>
+      <div>
+        <h3 style="font-size:13px;margin:0 0 8px">Vacantes y aplicaciones</h3>
+        <div id="vacList"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>3. Pricing validado</h2>
+    <div class="grid2">
+      <div style="border:1px solid #222;border-radius:10px;padding:14px">
+        <b>Pago único — $14.900 COP / 12 meses</b><br><span class="muted">1 CV, sin watermark, edición simple. QR Bre-B 0% / Wompi link solo al usar.</span>
+      </div>
+      <div style="border:1px solid #fff;border-radius:10px;padding:14px;background:#fff;color:#000">
+        <b>Pro — $19.900 COP / $9 USD mes</b><br><span style="color:#444">Hasta 10 CVs, tracking por vacante, ATS + camino formativo, 1-clic y lote.</span>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+let vacancies = [
+  {id:'vac_001', empresa:'TechCorp', rol:'Data Engineer', jd:'Python, Spark, Airflow y Snowflake', estado:'enviado', ats:68, rec:['Añadir Airflow en bullets','Mover Snowflake a primera categoría','Camino formativo: dbt Analytics Engineering']},
+  {id:'vac_823e64', empresa:'Bancolombia', rol:'Analista de Datos', jd:'SQL, Python, PowerBI y storytelling', estado:'entrevista', ats:62, rec:['Añadir PowerBI en skills','Reforzar storytelling','Camino formativo: PowerBI + Storytelling']}
+];
+function render(){
+  const c=document.getElementById('vacList'); c.innerHTML='';
+  vacancies.forEach(v=>{
+    const d=document.createElement('div'); d.className='vac-card';
+    d.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><b>${v.empresa} — ${v.rol}</b><span class="status ${v.estado}">${v.estado}</span></div>
+      <div class="muted" style="font-size:12px">${v.jd}</div>
+      <div class="progress"><i style="width:${v.ats}%"></i></div>
+      <div class="muted">ATS ${v.ats}%</div>
+      <div class="rec"><b>Recomendaciones:</b><br>${v.rec.map(r=>'• '+r).join('<br>')}<br><span class="muted">Camino formativo: partner virtual futuro</span></div>
+      <div class="row">
+        <button class="small" onclick="applyOneClick('${v.id}')">Aplicar en 1 clic</button>
+        <button class="small secondary" onclick="updateStatus('${v.id}','entrevista')">→ Entrevista</button>
+        <button class="small secondary" onclick="updateStatus('${v.id}','rechazado')">Rechazado</button>
+      </div>`;
+    c.appendChild(d);
+  });
+}
+function addVacancy(){
+  const empresa=document.getElementById('vEmpresa').value||'Empresa Demo';
+  const rol=document.getElementById('vRol').value||'Rol Demo';
+  const jd=document.getElementById('vJD').value||'Descripción pegada';
+  vacancies.push({id:'vac_'+Date.now(),empresa,rol,jd,estado:'enviado',ats: Math.floor(60+Math.random()*20), rec:['Añadir keyword de la vacante','Reordenar skills','Camino formativo sugerido']});
+  render();
+}
+function updateStatus(id,estado){const v=vacancies.find(x=>x.id===id); if(v){v.estado=estado; render();}}
+function applyOneClick(id){
+  const v=vacancies.find(x=>x.id===id);
+  if(v){v.ats=Math.min(95,v.ats+12); v.rec=['✓ Aplicado: CV regenerado todo negro sin watermark']; alert('CV regenerado para '+v.empresa+' — ATS ahora '+v.ats+'%'); render();}
+}
+function setColor(c){document.getElementById('colorVal').textContent=c; document.documentElement.style.setProperty('--accent',c); document.getElementById('preview').style.setProperty('--accent',c)}
+function setFont(f){document.getElementById('preview').style.fontFamily=f}
+function setSpacing(m){const p=document.getElementById('preview'); p.style.lineHeight = m==='compact'?'1.2':m==='amplio'?'1.7':'1.33'; p.style.padding = m==='compact'?'12px':m==='amplio'?'24px':'16px'}
+render();
+</script>
+</body>
+</html>
