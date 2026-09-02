@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page {
+    size: A4;
+    margin: 10mm 12mm;
+  }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #2c3e50;
+    margin: 0;
+    font-size: 9.5pt;
+    line-height: 1.33;
+  }
+  a { text-decoration: none; }
+  header {
+    border-bottom: 2px solid #1e3d59;
+    padding-bottom: 7px;
+    margin-bottom: 9px;
+  }
+  .name { font-size: 18pt; font-weight: 700; color: #1e3d59; text-transform: uppercase; line-height: 1.15; }
+  .title { font-size: 10pt; font-weight: 600; color: #17b978; text-transform: uppercase; margin-bottom: 2px; }
+  .tagline { font-size: 8.5pt; font-style: italic; color: #555; margin-bottom: 5px; }
+  .contact-info { font-size: 8pt; color: #555; line-height: 1.4; }
+  .contact-info a { color: #555; }
+  .section-title {
+    font-size: 10.5pt; font-weight: 700; color: #1e3d59;
+    text-transform: uppercase; border-bottom: 1px solid #dcdde1;
+    padding-bottom: 2px; margin-top: 8px; margin-bottom: 5px;
+    page-break-after: avoid;
+  }
+  .job { margin-bottom: 6px; }
+  .job-header { display: table; width: 100%; }
+  .job-title-co { display: table-cell; font-size: 9.5pt; }
+  .job-date-loc { display: table-cell; text-align: right; font-size: 8pt; color: #7f8c8d; white-space: nowrap; }
+  .job-scope { font-size: 8pt; color: #555; font-style: italic; margin-top: 1px; }
+  ul.bullets { margin: 2px 0 0 0; padding-left: 13px; }
+  ul.bullets li { margin: 0 0 1px 0; page-break-inside: avoid; }
+  .edu { margin-bottom: 5px; }
+  .edu-header { display: table; width: 100%; }
+  .edu-degree { display: table-cell; font-size: 9.5pt; font-weight: 600; }
+  .edu-period { display: table-cell; text-align: right; font-size: 8pt; color: #7f8c8d; white-space: nowrap; }
+  .edu-institution { font-size: 9pt; color: #555; }
+  .edu-details { font-size: 8.5pt; color: #2c3e50; }
+  .skills { font-size: 9.5pt; margin-bottom: 2px; }
+  .skills-category { font-weight: 600; color: #1e3d59; }
+  .lang { font-size: 9.5pt; margin-bottom: 2px; }
+  .lang a { color: #1e3d59; }
+  ul.certs { margin: 2px 0 0 0; padding-left: 13px; }
+  ul.certs li { margin: 0 0 1px 0; page-break-inside: avoid; }
+  .cert-link { font-size: 8.5pt; color: #1e3d59; margin-top: 3px; }
+  .cert-link a { color: #1e3d59; }
+  .watermark {
+    position: fixed;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 52pt;
+    color: rgba(180, 30, 30, 0.14);
+    font-weight: 800;
+    text-transform: uppercase;
+    white-space: nowrap;
+    letter-spacing: 5px;
+    z-index: 9999;
+    pointer-events: none;
+  }
+  .watermark2 {
+    position: fixed;
+    top: 68%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 28pt;
+    color: rgba(180, 30, 30, 0.11);
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+    letter-spacing: 3px;
+    z-index: 9999;
+    pointer-events: none;
+  }
+  .watermark-footer {
+    position: fixed;
+    bottom: 6mm;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 7pt;
+    color: rgba(140, 30, 30, 0.85);
+    font-weight: 600;
+    border-top: 1px solid rgba(180,30,30,0.3);
+    padding-top: 3px;
+  }
+</style>
+</head>
+<body>
+{% if data.meta is defined and data.meta.watermark %}
+<div class="watermark">BORRADOR — {{ data.header.email }}</div>
+<div class="watermark2">NO VÁLIDO PARA ENVÍO — PAGA PARA QUITAR</div>
+<div class="watermark-footer">BORRADOR — {{ data.header.name }} — {{ data.header.email }} — Generado sin pago — Actualiza a pago único/Pro para quitar esta marca</div>
+{% endif %}
+
+<header>
+  <div class="name">{{ data.header.name }}</div>
+  <div class="title">{{ data.header.title }}</div>
+  {% if data.header.tagline %}<div class="tagline">{{ data.header.tagline }}</div>{% endif %}
+  <div class="contact-info">
+    {{ data.header.email }} | {{ data.header.phone }} | {{ data.header.location }}<br>
+    <a href="https://{{ data.header.linkedin }}">{{ data.header.linkedin }}</a>{% if data.header.portfolio %} | <a href="https://{{ data.header.portfolio }}">{{ data.header.portfolio }}</a>{% endif %}
+  </div>
+</header>
+
+<div class="section-title">{{ labels.summary }}</div>
+<div>{{ data.summary }}</div>
+
+<div class="section-title">{{ labels.experience }}</div>
+{% for job in data.experience %}
+<div class="job">
+  <div class="job-header">
+    <div class="job-title-co"><strong>{{ job.role }}</strong> | {{ job.company }}</div>
+    <div class="job-date-loc">{{ job.period }} | {{ job.location }}</div>
+  </div>
+  {% if job.scope %}<div class="job-scope">{{ job.scope }}</div>{% endif %}
+  <ul class="bullets">
+    {% for point in job.bullet_points %}
+    <li>{{ point }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endfor %}
+
+{% if data.projects %}
+<div class="section-title">{{ labels.projects }}</div>
+{% for p in data.projects %}
+<div class="job">
+  <div class="job-header">
+    <div class="job-title-co"><strong>{{ p.name }}</strong>{% if p.role %} | {{ p.role }}{% endif %}</div>
+    <div class="job-date-loc">{% if p.period %}{{ p.period }}{% if p.location %} | {{ p.location }}{% endif %}{% endif %}</div>
+  </div>
+  {% if p.description %}<div class="job-scope">{{ p.description }}</div>{% endif %}
+  {% if p.bullet_points %}
+  <ul class="bullets">
+    {% for point in p.bullet_points %}<li>{{ point }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="section-title">{{ labels.education }}</div>
+{% for edu in data.education %}
+<div class="edu">
+  <div class="edu-header">
+    <div class="edu-degree">{{ edu.degree }}</div>
+    <div class="edu-period">{{ edu.period }}</div>
+  </div>
+  <div class="edu-institution">{{ edu.institution }}{% if edu.location %} — {{ edu.location }}{% endif %}</div>
+  {% if edu.details %}<div class="edu-details">{{ edu.details }}</div>{% endif %}
+</div>
+{% endfor %}
+
+<div class="section-title">{{ labels.skills }}</div>
+{% for category, items in data.skills.items() %}
+<div class="skills"><span class="skills-category">{{ category }}:</span> {{ items | join(', ') }}</div>
+{% endfor %}
+
+{% if data.publications %}
+<div class="section-title">{{ labels.publications }}</div>
+<ul class="certs">
+  {% for pub in data.publications %}
+  <li>{% if pub.authors %}{{ pub.authors }}. {% endif %}<em>{{ pub.title }}</em>{% if pub.venue %}. {{ pub.venue }}{% endif %}{% if pub.year %} ({{ pub.year }}){% endif %}{% if pub.link %} — <a href="https://{{ pub.link }}">{{ pub.link }}</a>{% endif %}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if data.volunteer %}
+<div class="section-title">{{ labels.volunteer }}</div>
+{% for v in data.volunteer %}
+<div class="job">
+  <div class="job-header">
+    <div class="job-title-co"><strong>{{ v.role }}</strong> | {{ v.organization }}</div>
+    <div class="job-date-loc">{% if v.period %}{{ v.period }}{% if v.location %} | {{ v.location }}{% endif %}{% endif %}</div>
+  </div>
+  {% if v.bullet_points %}
+  <ul class="bullets">
+    {% for point in v.bullet_points %}<li>{{ point }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+{% if data.awards %}
+<div class="section-title">{{ labels.awards }}</div>
+<ul class="certs">
+  {% for a in data.awards %}
+  <li><strong>{{ a.name }}</strong>{% if a.issuer %} — {{ a.issuer }}{% endif %}{% if a.year %} ({{ a.year }}){% endif %}{% if a.description %} — {{ a.description }}{% endif %}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<div class="section-title">{{ labels.certifications }}</div>
+<ul class="certs">
+  {% for cert in data.certifications %}
+  <li>{{ cert }}</li>
+  {% endfor %}
+</ul>
+{% if data.certificates_url %}
+<div class="cert-link"><a href="https://{{ data.certificates_url }}">{{ data.certificates_url }}</a></div>
+{% endif %}
+
+<div class="section-title">{{ labels.languages }}</div>
+{% for lang in data.languages %}
+<div class="lang"><strong>{{ lang.language }}</strong> — {{ lang.level }}{% if lang.link %} — <a href="https://{{ lang.link }}">{{ lang.link }}</a>{% endif %}</div>
+{% endfor %}
+
+</body>
+</html>

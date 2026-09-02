@@ -1,0 +1,18 @@
+[
+  {
+    "id": "app_001",
+    "vacancy_id": "vac_001",
+    "cv_id": "cv_001",
+    "cv_version": "Laura_Gomez_CV_ES.pdf",
+    "email_enviado_a": "rrhh@techcorp.com",
+    "enviado_en": "2026-09-02",
+    "estado": "enviado",
+    "ats_score": 68,
+    "recomendaciones": [
+      "Añadir keyword 'Airflow' en bullets de experiencia",
+      "Mover 'Snowflake' a primera categoría de skills",
+      "Camino formativo: dbt Analytics Engineering (partners futuros)"
+    ],
+    "aplicado_1_clic": false
+  }
+]

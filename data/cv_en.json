@@ -1,0 +1,86 @@
+{
+  "header": {
+    "name": "Laura Gomez",
+    "title": "Data Engineer",
+    "tagline": "I turn complex data into reliable products and decisions",
+    "email": "laura.gomez@ejemplo.com",
+    "phone": "+34 600 000 000",
+    "location": "Madrid, Spain",
+    "linkedin": "linkedin.com/in/lauragomez",
+    "portfolio": "lauragomez.dev"
+  },
+  "meta": {
+    "tier": "single",
+    "watermark": false,
+    "valid_until": "2027-09-02",
+    "cv_id": "cv_001"
+  },
+  "summary": "Data Engineer with over 5 years designing scalable data pipelines and platforms for healthcare and fintech. Specialist in transforming scattered sources into reliable, governed, high-performance analytical models. I combine product sense and engineering rigor to deliver data people actually use in their decisions.",
+  "experience": [
+    {
+      "role": "Senior Data Engineer",
+      "company": "HealthData Labs",
+      "period": "2022 - Present",
+      "location": "Madrid",
+      "scope": "Owner of the company's data platform and data governance model.",
+      "bullet_points": [
+        "Designed and operated ingestion pipelines that cut critical report latency from 24h to 15 minutes.",
+        "Led the migration to a governed lakehouse, reducing storage costs by 38%.",
+        "Implemented data quality controls that lowered erroneous-report incidents by 70%."
+      ]
+    },
+    {
+      "role": "Data Engineer",
+      "company": "Banco Nube",
+      "period": "2020 - 2022",
+      "location": "Barcelona",
+      "bullet_points": [
+        "Built the credit-risk data model used daily by 12 analysts.",
+        "Automated recurring ETL tasks, freeing ~10 team hours per week."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Self-Service Data Platform",
+      "role": "Tech Lead",
+      "period": "2023",
+      "description": "Internal portal where analysts query data without writing SQL.",
+      "bullet_points": [
+        "Adopted by 80+ users within the first 3 months.",
+        "Reduced dependency on the data team by 45%."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "MSc in Data Science",
+      "institution": "Universidad Politécnica de Madrid",
+      "period": "2019 - 2020",
+      "location": "Madrid"
+    }
+  ],
+  "skills": {
+    "Data Engineering": ["Python", "SQL", "Spark", "Airflow", "dbt", "Kafka"],
+    "Platform & Cloud": ["AWS", "Snowflake", "Databricks", "Docker", "Terraform"],
+    "Governance & Quality": ["Data Contracts", "Data testing", "Data catalog", "Lineage"]
+  },
+  "publications": [
+    {
+      "authors": "Gomez, L., Ruiz, M.",
+      "title": "Data governance models for healthcare lakehouses",
+      "venue": "National Data Conference",
+      "year": "2024",
+      "link": "example.com/pub/2024"
+    }
+  ],
+  "certifications": [
+    "AWS Certified Data Analytics — Associate",
+    "dbt Analytics Engineering"
+  ],
+  "languages": [
+    { "language": "Spanish", "level": "Native" },
+    { "language": "English", "level": "Advanced (C1)" }
+  ],
+  "certificates_url": ""
+}

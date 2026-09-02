@@ -1,0 +1,86 @@
+{
+  "header": {
+    "name": "Laura Gómez",
+    "title": "Ingeniera de Datos",
+    "tagline": "Convierto datos complejos en productos y decisiones confiables",
+    "email": "laura.gomez@ejemplo.com",
+    "phone": "+34 600 000 000",
+    "location": "Madrid, España",
+    "linkedin": "linkedin.com/in/lauragomez",
+    "portfolio": "lauragomez.dev"
+  },
+  "meta": {
+    "tier": "single",
+    "watermark": false,
+    "vigencia_hasta": "2027-09-02",
+    "cv_id": "cv_001"
+  },
+  "summary": "Ingeniera de Datos con más de 5 años diseñando pipelines y plataformas de datos escalables para entornos de salud y fintech. Especialista en transformar fuentes dispersas en modelos analíticos confiables, gobernados y de alto rendimiento. Combino visión de producto y rigor de ingeniería para entregar datos que las personas realmente usan en sus decisiones.",
+  "experience": [
+    {
+      "role": "Ingeniera de Datos Senior",
+      "company": "HealthData Labs",
+      "period": "2022 - Presente",
+      "location": "Madrid",
+      "scope": "Responsable de la plataforma de datos de la empresa y del modelo de gobierno de datos.",
+      "bullet_points": [
+        "Diseñé y operé pipelines de ingestión que redujeron la latencia de reportes críticos de 24h a 15 minutos.",
+        "Lideré la migración a un lakehouse gobernado, bajando los costos de almacenamiento en un 38%.",
+        "Implementé controles de calidad de datos que disminuyeron los incidentes de reportes erróneos en un 70%."
+      ]
+    },
+    {
+      "role": "Ingeniera de Datos",
+      "company": "Banco Nube",
+      "period": "2020 - 2022",
+      "location": "Barcelona",
+      "bullet_points": [
+        "Construí el modelo de datos para el área de riesgo crediticio usado por 12 analistas diariamente.",
+        "Automatizé tareas de ETL recurrentes, liberando ~10 horas semanales del equipo."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Plataforma de Datos Self-Service",
+      "role": "Tech Lead",
+      "period": "2023",
+      "description": "Portal interno donde los analistas consultan datos sin escribir SQL.",
+      "bullet_points": [
+        "Adopción por 80+ usuarios en los primeros 3 meses.",
+        "Redujo la dependencia del equipo de datos en un 45%."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Máster en Ciencia de Datos",
+      "institution": "Universidad Politécnica de Madrid",
+      "period": "2019 - 2020",
+      "location": "Madrid"
+    }
+  ],
+  "skills": {
+    "Ingeniería de Datos": ["Python", "SQL", "Spark", "Airflow", "dbt", "Kafka"],
+    "Plataforma & Cloud": ["AWS", "Snowflake", "Databricks", "Docker", "Terraform"],
+    "Gobierno & Calidad": ["Data Contracts", "Testing de datos", "Catálogo de datos", "Lineage"]
+  },
+  "publications": [
+    {
+      "authors": "Gómez, L., Ruiz, M.",
+      "title": "Modelos de gobierno de datos para lakehouses en salud",
+      "venue": "Conferencia Nacional de Datos",
+      "year": "2024",
+      "link": "ejemplo.com/pub/2024"
+    }
+  ],
+  "certifications": [
+    "AWS Certified Data Analytics — Associate",
+    "dbt Analytics Engineering"
+  ],
+  "languages": [
+    { "language": "Español", "level": "Nativo" },
+    { "language": "Inglés", "level": "Avanzado (C1)" }
+  ],
+  "certificates_url": ""
+}

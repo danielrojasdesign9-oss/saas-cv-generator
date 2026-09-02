@@ -1,0 +1,10 @@
+[
+  {
+    "id": "vac_001",
+    "empresa": "TechCorp",
+    "rol": "Data Engineer",
+    "url": "https://ejemplo.com/vacante/123",
+    "jd_text": "Buscamos Data Engineer con Python, Spark, Airflow y Snowflake. Experiencia en pipelines y gobierno de datos.",
+    "creada_en": "2026-09-02"
+  }
+]

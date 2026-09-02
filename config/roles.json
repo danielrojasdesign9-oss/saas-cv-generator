@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "roles": {
+    "admin": {
+      "description": "Rol único del propietario. Gestiona usuarios, tiers, vigencias, plantillas y métricas globales. No edita CVs ajenos salvo soporte explícito.",
+      "permissions": [
+        "ver_usuarios", "cambiar_tier", "extender_vigencia", "ver_metricas_globales",
+        "gestionar_plantillas", "gestionar_tokens_tema", "gestionar_partners_aprendizaje",
+        "desbloquear_header_name"
+      ]
+    },
+    "user_free": {
+      "description": "Plan gratuito — 1 CV con marca de agua pronunciada. Ideal para probar.",
+      "limits": { "max_cvs": 1, "watermark": true, "exports_mes": 3 },
+      "permissions": ["crear_cv", "editar_contenido", "ver_preview_con_watermark", "exportar_con_watermark"],
+      "upgrade_trigger": "cualquier intento de quitar watermark, crear 2º CV o cambiar header.name más de 1 vez/mes"
+    },
+    "user_single": {
+      "description": "Pago único — 1 CV único almacenado, watermark off, edición simple (colores/tipos/espaciados/contenido). Vigencia 12 meses.",
+      "limits": { "max_cvs": 1, "watermark": false, "vigencia_meses": 12, "exports_mes": 30 },
+      "permissions": ["crear_cv", "editar_contenido", "editar_tema_simple", "exportar_sin_watermark", "gestionar_1_vacante_tracking"],
+      "post_vigencia": "vuelve a user_free (watermark on, solo lectura hasta renovar)"
+    },
+    "user_pro": {
+      "description": "Suscripción — hasta 10 CVs, gestión por vacante, lote y asesoramiento continuo.",
+      "limits": { "max_cvs": 10, "watermark": false, "exports_mes": 100 },
+      "permissions": [
+        "crear_cv", "editar_contenido", "editar_tema_simple", "exportar_sin_watermark",
+        "gestionar_10_cvs", "gestionar_vacantes_ilimitadas", "actualizacion_en_lote",
+        "recomendaciones_ats", "camino_formativo", "aplicar_1_clic"
+      ]
+    }
+  },
+  "payment": {
+    "pago_unico": { "metodos": ["QR Bre-B 0%", "Wompi Payment Link"], "solo_cobra_al_usar": true, "precio_sugerido_cop": 14900 },
+    "suscripcion": { "metodos": ["Wompi Link recurrente"], "solo_cobra_al_usar": true, "precio_sugerido_cop_mes": 19900, "precio_sugerido_usd_mes": 9 }
+  },
+  "roadmap_integraciones": {
+    "email_oauth": "En la mira — Gmail/Outlook OAuth para auto-track de envíos. v1 es log manual.",
+    "partners_aprendizaje": "En la mira — asociarse a empresas de aprendizaje virtual para camino formativo (endpoint partners_aprendizaje preparado)."
+  }
+}

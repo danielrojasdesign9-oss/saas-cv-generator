@@ -1,0 +1,3 @@
+weasyprint
+python-docx
+jinja2
