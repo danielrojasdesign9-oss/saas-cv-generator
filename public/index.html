@@ -3,162 +3,284 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CV Generator SaaS — Demo Pro</title>
+<title>CV Generator — Demo Pro</title>
 <style>
-  :root{--bg:#0a0a0a;--card:#111;--border:#222;--text:#f5f5f5;--muted:#999;--accent:#fff}
+  :root{--bg:#FFFBF5;--card:#FFFFFF;--border:#E8E0D6;--text:#111;--muted:#6B6B6B;--accent:#000;--accent2:#000}
   *{box-sizing:border-box}
   body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;line-height:1.5}
-  header{border-bottom:1px solid var(--border);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg);z-index:10}
-  header h1{font-size:18px;margin:0;letter-spacing:1px}
-  .badge{background:#fff;color:#000;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
-  .wrap{max-width:1200px;margin:0 auto;padding:24px;display:grid;gap:24px}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-  @media(max-width:900px){.grid2{grid-template-columns:1fr}}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
-  .card h2{font-size:14px;text-transform:uppercase;letter-spacing:1px;margin:0 0 12px;color:var(--muted)}
-  .row{display:flex;gap:8px;flex-wrap:wrap}
-  input,textarea,select{background:#000;color:#fff;border:1px solid #333;border-radius:8px;padding:10px;width:100%;font:inherit}
-  textarea{resize:vertical;min-height:80px}
-  label{font-size:12px;color:var(--muted);display:block;margin:8px 0 4px}
-  button{background:#fff;color:#000;border:0;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer}
-  button.secondary{background:transparent;color:#fff;border:1px solid #333}
-  button.small{padding:6px 10px;font-size:12px}
+  header{border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg);z-index:10}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:1px}
+  .logo svg{width:36px;height:36px}
+  .badge{background:#111;color:#FFFBF5;padding:5px 12px;border-radius:999px;font-size:12px;font-weight:700}
+  .wrap{max-width:1200px;margin:0 auto;padding:20px;display:grid;gap:20px}
+  .plans{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  @media(max-width:900px){.plans{grid-template-columns:1fr}}
+  .plan{border:1px solid var(--border);border-radius:12px;padding:16px;background:var(--card)}
+  .plan.pro{border-color:#111;background:#111;color:#FFFBF5}
+  .plan h3{margin:0 0 6px;font-size:13px;letter-spacing:1px;text-transform:uppercase}
   .muted{color:var(--muted);font-size:13px}
-  .vac-card{border:1px solid #222;border-radius:10px;padding:14px;margin:10px 0;background:#0f0f0f}
-  .status{font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid #333}
-  .status.enviado{color:#f5f5f5}.status.entrevista{color:#000;background:#fff;border-color:#fff}.status.rechazado{color:#ff6b6b}
-  .progress{height:6px;background:#222;border-radius:999px;overflow:hidden;margin:8px 0}
-  .progress i{display:block;height:100%;background:#fff}
-  .rec{background:#1a1a1a;border:1px dashed #333;border-radius:8px;padding:10px;margin:8px 0;font-size:13px}
-  .preview{border:1px solid #222;border-radius:8px;padding:16px;background:#fff;color:#000;min-height:300px}
-  .preview h3{margin:0 0 4px;font-size:18px;text-transform:uppercase}
-  .preview .title{font-size:11px;font-weight:700;text-transform:uppercase;margin-bottom:8px}
-  .swatch{width:24px;height:24px;border-radius:50%;border:2px solid #fff;cursor:pointer}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+  .card h2{font-size:13px;text-transform:uppercase;letter-spacing:1px;margin:0 0 8px;color:var(--muted)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:900px){.grid2{grid-template-columns:1fr}}
+  label{font-size:12px;color:var(--muted);display:block;margin:10px 0 4px}
+  input,textarea,select{background:#FFFBF5;color:#111;border:1px solid #DDD8CF;border-radius:8px;padding:10px;width:100%;font:inherit}
+  textarea{resize:vertical;min-height:80px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{background:#111;color:#FFFBF5;border:0;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer}
+  button.secondary{background:transparent;color:#111;border:1px solid #DDD8CF}
+  button.small{padding:6px 10px;font-size:12px}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  .swatch{width:26px;height:26px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #DDD8CF;cursor:pointer}
+  .swatch.active{box-shadow:0 0 0 2px #111}
+  .preview{border:1px solid #E8E0D6;border-radius:10px;padding:16px;background:#fff;color:#000;min-height:340px}
+  .dummy-badge{display:inline-block;background:#FFF3CD;border:1px solid #E8C86A;color:#6B5900;font-size:10px;padding:2px 8px;border-radius:999px;margin-bottom:8px}
+  .empty{border:1px dashed #DDD8CF;border-radius:10px;padding:24px;text-align:center;color:var(--muted);background:#FFFEFB}
+  .vac-card{border:1px solid #E8E0D6;border-radius:10px;padding:14px;margin:10px 0;background:#FFFEFB}
+  .status{font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid #DDD8CF}
+  .status.enviado{color:#111}.status.entrevista{color:#fff;background:#111;border-color:#111}.status.rechazado{color:#8B1E1E;border-color:#E8C6C6}
+  .progress{height:6px;background:#F0E6D8;border-radius:999px;overflow:hidden;margin:8px 0}
+  .progress i{display:block;height:100%;background:#111}
+  .rec{background:#FFFEFB;border:1px dashed #E8D9C6;border-radius:8px;padding:10px;margin:8px 0;font-size:13px}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:50}
+  .modal .box{background:#FFFBF5;border:1px solid #E8E0D6;border-radius:12px;padding:20px;max-width:420px;width:90%}
+  .preview-title{font-family:var(--font-title,'Helvetica Neue',Helvetica,Arial,sans-serif)}
+  .preview-body{font-family:var(--font-body,'Helvetica Neue',Helvetica,Arial,sans-serif)}
 </style>
 </head>
 <body>
 <header>
-  <h1>CV GENERATOR — DEMO PRO</h1>
-  <div style="display:flex;gap:12px;align-items:center">
-    <span class="muted">Todo negro • Helvetica/Arial (ATS)</span>
-    <span class="badge">PRO • 10 CVs • 12 meses</span>
+  <div class="logo">
+    <svg viewBox="0 0 40 40" aria-label="CV logo"><text x="6" y="26" font-size="22" font-weight="800" transform="rotate(-8 12 20)" fill="#111">C</text><text x="18" y="28" font-size="22" font-weight="800" transform="rotate(8 26 20)" fill="#111">V</text></svg>
+    CV GENERATOR
   </div>
+  <span class="badge">PRO • 10 CVs • 12 meses</span>
 </header>
+
 <div class="wrap">
-  <div class="grid2">
-    <div class="card">
-      <h2>1. Personalización dummy (colores / tipos / espaciado)</h2>
-      <label>Color primario (todo negro por defecto)</label>
-      <div class="row" style="align-items:center">
-        <div class="swatch" style="background:#000" title="Negro" onclick="setColor('#000')"></div>
-        <div class="swatch" style="background:#1e3d59" title="Navy" onclick="setColor('#1e3d59')"></div>
-        <div class="swatch" style="background:#7c3aed" title="Violeta" onclick="setColor('#7c3aed')"></div>
-        <input id="colorPick" type="color" value="#000000" style="width:48px;height:32px;padding:2px" oninput="setColor(this.value)">
-        <span id="colorVal" class="muted">#000000</span>
+  <!-- Plan informativo arriba, no como paso -->
+  <div class="plans">
+    <div class="plan"><h3>Free</h3><div>1 CV con marca de agua pronunciada<br><span class="muted">3 exports/mes • vista previa con dummy</span></div></div>
+    <div class="plan"><h3>Pago único — $14.900 COP</h3><div>1 CV sin watermark, edición simple<br><span class="muted">12 meses • colores/tipos/espaciados</span></div></div>
+    <div class="plan pro"><h3>Pro — $19.900 COP / $9 USD</h3><div>Hasta 10 CVs, tracking por vacante, lote, ATS + camino formativo, 1-clic</div></div>
+  </div>
+
+  <!-- Paso 1: Datos base -->
+  <div class="card">
+    <h2>Paso 1 — Datos base de tu CV</h2>
+    <p class="muted">Rellena tu información. Si aún no tienes datos, verás un <b>empty state</b> con CTA. El preview de la derecha muestra <b>dummy</b> (ejemplo) con etiqueta hasta que guardes.</p>
+    <div class="grid2">
+      <div>
+        <label>Nombre completo</label><input id="inName" placeholder="Ej. Laura Gómez" value="Laura Gómez">
+        <label>Título profesional</label><input id="inTitle" placeholder="Ej. Ingeniera de Datos" value="Ingeniera de Datos">
+        <label>Tagline</label><input id="inTagline" placeholder="Frase corta" value="Convierto datos complejos en decisiones confiables">
+        <div class="grid2"><div><label>Email</label><input id="inEmail" placeholder="tu@email.com" value="laura.gomez@ejemplo.com"></div><div><label>Teléfono</label><input id="inPhone" placeholder="+57 ..." value="+34 600 000 000"></div></div>
+        <label>Ubicación</label><input id="inLocation" placeholder="Madrid, España" value="Madrid, España">
+        <label>LinkedIn / Portfolio</label><input id="inLinkedin" placeholder="linkedin.com/in/..." value="linkedin.com/in/lauragomez">
+        <label>Resumen profesional</label><textarea id="inSummary" placeholder="2–3 frases con impacto">Ingeniera de Datos con 5 años diseñando pipelines y plataformas escalables...</textarea>
+        <div class="row" style="margin-top:10px">
+          <button class="small" onclick="saveBase()">Guardar datos base</button>
+          <span id="saveMsg" class="muted"></span>
+        </div>
       </div>
-      <label>Tipografía base estándar</label>
-      <select id="fontPick" onchange="setFont(this.value)">
-        <option value="'Helvetica Neue',Helvetica,Arial,sans-serif">Helvetica / Arial — ATS (recomendada)</option>
-        <option value="Calibri, Arial, sans-serif">Calibri — ATS moderna</option>
-        <option value="Garamond, Georgia, serif">Garamond — elegante</option>
-      </select>
-      <label>Espaciado</label>
-      <div class="row">
-        <button class="small secondary" onclick="setSpacing('compact')">Compacto</button>
-        <button class="small secondary" onclick="setSpacing('normal')">Normal</button>
-        <button class="small secondary" onclick="setSpacing('amplio')">Amplio</button>
-      </div>
-      <p class="muted">Cambios en vivo en la preview. En Pro se guardan por CV.</p>
-    </div>
-    <div class="card">
-      <h2>Preview CV (Laura Gómez — Data Engineer)</h2>
-      <div id="preview" class="preview" style="--accent:#000">
-        <h3 id="pvName" style="color:var(--accent)">LAURA GÓMEZ</h3>
-        <div id="pvTitle" class="title" style="color:var(--accent)">INGENIERA DE DATOS</div>
-        <div style="font-size:12px;color:#444">laura.gomez@ejemplo.com | Madrid, España</div>
-        <hr style="border:0;border-top:2px solid var(--accent);margin:10px 0">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--accent)">Perfil profesional</div>
-        <div style="font-size:11px;margin:6px 0">Ingeniera de Datos con 5 años diseñando pipelines y plataformas escalables...</div>
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--accent);margin-top:10px">Experiencia</div>
-        <div style="font-size:11px"><b>Senior Data Engineer</b> | HealthData Labs — 2022–Presente</div>
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--accent);margin-top:10px">Habilidades</div>
-        <div style="font-size:11px">Python, SQL, Spark, Airflow, dbt, Kafka</div>
-      </div>
-      <div class="row" style="margin-top:10px">
-        <button onclick="alert('PDF generado: Laura_Gomez_CV_ES.pdf (todo negro, sin watermark — Pro)')">Generar PDF</button>
-        <button class="secondary" onclick="alert('DOCX generado')">Generar DOCX</button>
+      <div>
+        <label>Experiencia — múltiples trabajos solapados permitidos (control total tuyo)</label>
+        <div id="expEmpty" class="empty" style="display:none">Aún no has añadido experiencia — añade tu primer empleo ↓</div>
+        <div id="expList"></div>
+        <div class="row" style="margin-top:8px">
+          <input id="expRole" placeholder="Rol" style="flex:1">
+          <input id="expCompany" placeholder="Empresa" style="flex:1">
+        </div>
+        <div class="grid2">
+          <div><label>Desde (mes/año)</label><input id="expFrom" type="month" value="2022-01"></div>
+          <div><label>Hasta</label><div class="row"><input id="expTo" type="month" value="2024-12" style="flex:1"><label style="display:flex;align-items:center;gap:6px;margin:0"><input type="checkbox" id="expPresent" onchange="togglePresent()"> Presente</label></div></div>
+        </div>
+        <label>Scope (opcional)</label><input id="expScope" placeholder="Responsable de...">
+        <label>Bullets (uno por línea, con métrica si puedes)</label><textarea id="expBullets" placeholder="- Reduje latencia de 24h a 15min&#10;- Bajé costos 38%"></textarea>
+        <div class="row" style="margin-top:8px"><button class="small" onclick="addExp()">Añadir experiencia</button><span id="expWarn" class="muted"></span></div>
       </div>
     </div>
   </div>
 
+  <!-- Paso 2: Personalización -->
   <div class="card">
-    <h2>2. Gestión por vacante — flujo completo Pro</h2>
-    <p class="muted">Estudiante: 1 vacante a la vez. Profesional Pro: hasta 10 CVs vinculados a vacantes distintas, seguimiento y 1-clic.</p>
+    <h2>Paso 2 — Personalización (10 colores primarios con presencia)</h2>
     <div class="grid2">
       <div>
-        <h3 style="font-size:13px;margin:0 0 8px">Añadir vacante</h3>
-        <label>Empresa</label><input id="vEmpresa" placeholder="Bancolombia">
-        <label>Rol</label><input id="vRol" placeholder="Analista de Datos">
-        <label>Descripción de la vacante (pega el texto)</label><textarea id="vJD" placeholder="Requiere SQL, Python, PowerBI y storytelling"></textarea>
+        <label>Color primario (se aplica a nombre, títulos y bordes)</label>
+        <div class="row" id="swatches"></div>
+        <div class="row" style="margin-top:8px"><input id="colorPick" type="color" value="#000000" style="width:48px;height:32px;padding:2px" oninput="setColor(this.value)"><span id="colorVal" class="muted">#000000</span></div>
+        <p class="muted">Paleta curada con presencia y contraste AA. “Todo negro” es el por defecto.</p>
+      </div>
+      <div>
+        <label>Tipografía — 3 visibles ATS + dropdown</label>
+        <div class="row">
+          <button class="small" onclick="setTitleFont('Helvetica')">Helvetica/Arial</button>
+          <button class="small secondary" onclick="setTitleFont('Calibri')">Calibri</button>
+          <button class="small secondary" onclick="setTitleFont('Garamond')">Garamond</button>
+          <select id="fontMore" onchange="setTitleFont(this.value)">
+            <option value="">Más tipos...</option>
+            <option>Inter</option><option>Roboto</option><option>Lato</option><option>Merriweather</option><option>Playfair</option><option>Source Sans</option><option>Ubuntu</option><option>Futura</option>
+          </select>
+        </div>
+        <label>Combinar título / cuerpo (con recomendación)</label>
+        <div class="grid2">
+          <div><label>Título</label><select id="fontTitle" onchange="updateFonts()"><option>Helvetica/Arial</option><option>Calibri</option><option selected>Garamond</option><option>Inter</option></select></div>
+          <div><label>Cuerpo</label><select id="fontBody" onchange="updateFonts()"><option selected>Helvetica/Arial</option><option>Calibri</option><option>Garamond</option><option>Inter</option></select></div>
+        </div>
+        <div id="fontRec" class="muted" style="margin-top:6px">Recomendación: Garamond (título) + Helvetica (cuerpo) para ejecutivo; Helvetica/Calibri para tech ATS.</div>
+        <label>Espaciado</label>
+        <div class="row"><button class="small secondary" onclick="setSpacing('compact')">Compacto</button><button class="small secondary" onclick="setSpacing('normal')">Normal</button><button class="small secondary" onclick="setSpacing('amplio')">Amplio</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preview con dummy vs empty -->
+  <div class="card">
+    <h2>Preview en vivo</h2>
+    <div id="dummyBadge" class="dummy-badge">EJEMPLO — dummy (reemplaza con tus datos al guardar)</div>
+    <div id="preview" class="preview" style="--accent:#000">
+      <h3 id="pvName" class="preview-title" style="color:var(--accent)">LAURA GÓMEZ</h3>
+      <div id="pvTitle" class="preview-title" style="color:var(--accent)">INGENIERA DE DATOS</div>
+      <div id="pvContact" style="font-size:12px;color:#444">laura.gomez@ejemplo.com | Madrid, España</div>
+      <hr style="border:0;border-top:2px solid var(--accent);margin:10px 0">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--accent)">Perfil profesional</div>
+      <div id="pvSummary" class="preview-body" style="font-size:11px;margin:6px 0">Ingeniera de Datos con 5 años diseñando pipelines...</div>
+      <div id="pvExp" style="font-size:11px;margin-top:10px"></div>
+    </div>
+    <p class="muted">Dummy vs Empty: si no has guardado datos base, ves dummy con badge. Si vacantes está vacío, ves empty state con CTA (abajo).</p>
+  </div>
+
+  <!-- Paso 3: Vacantes -->
+  <div class="card">
+    <h2>Paso 3 — Vacantes (copiar y pegar)</h2>
+    <p class="muted">Pega la descripción completa de la vacante. La revisión compara tu CV real con la vacante y propone mejoras válidas. “Aplicar” ahora es “Revisar → Implementar auto si deseas”.</p>
+    <div class="grid2">
+      <div>
+        <label>Empresa</label><input id="vEmpresa" placeholder="Ej. Rappi">
+        <label>Rol</label><input id="vRol" placeholder="Ej. Product Designer">
+        <label>Descripción pegada de la vacante</label><textarea id="vJD" placeholder="Pega aquí el texto completo de la vacante..."></textarea>
         <div class="row" style="margin-top:10px"><button onclick="addVacancy()">Añadir vacante</button></div>
       </div>
       <div>
-        <h3 style="font-size:13px;margin:0 0 8px">Vacantes y aplicaciones</h3>
+        <div id="vacEmpty" class="empty">Aún no has añadido vacantes — pega la primera JD arriba ↑</div>
         <div id="vacList"></div>
       </div>
     </div>
   </div>
 
-  <div class="card">
-    <h2>3. Pricing validado</h2>
-    <div class="grid2">
-      <div style="border:1px solid #222;border-radius:10px;padding:14px">
-        <b>Pago único — $14.900 COP / 12 meses</b><br><span class="muted">1 CV, sin watermark, edición simple. QR Bre-B 0% / Wompi link solo al usar.</span>
-      </div>
-      <div style="border:1px solid #fff;border-radius:10px;padding:14px;background:#fff;color:#000">
-        <b>Pro — $19.900 COP / $9 USD mes</b><br><span style="color:#444">Hasta 10 CVs, tracking por vacante, ATS + camino formativo, 1-clic y lote.</span>
-      </div>
+  <!-- Paso 4: Generar al final -->
+  <div class="card" style="border-color:#111">
+    <h2>Paso 4 — Generar</h2>
+    <p class="muted">Botones al final, cuando todo está listo. Por ahora no bloqueamos acciones (condicionales diseñados para después: requerir nombre+email+1 experiencia, 1 CV en pago único, 10 en Pro).</p>
+    <div class="row">
+      <button onclick="alert('PDF generado: '+document.getElementById('pvName').textContent.replace(/\s/g,'_')+'_CV_ES.pdf (todo negro, sin watermark)')">Generar PDF</button>
+      <button class="secondary" onclick="alert('DOCX generado')">Generar DOCX</button>
+      <span class="muted">Condicional futuro: deshabilitar si falta nombre/email/experiencia.</span>
     </div>
   </div>
 </div>
+
+<div id="delModal" class="modal"><div class="box"><h3 style="margin:0 0 8px">¿Borrar vacante?</h3><p class="muted" id="delMsg"></p><div class="row" style="justify-content:flex-end"><button class="secondary small" onclick="closeDel()">Cancelar</button><button class="small" style="background:#8B1E1E;color:#fff" onclick="confirmDel()">Borrar</button></div></div></div>
+
 <script>
-let vacancies = [
-  {id:'vac_001', empresa:'TechCorp', rol:'Data Engineer', jd:'Python, Spark, Airflow y Snowflake', estado:'enviado', ats:68, rec:['Añadir Airflow en bullets','Mover Snowflake a primera categoría','Camino formativo: dbt Analytics Engineering']},
-  {id:'vac_823e64', empresa:'Bancolombia', rol:'Analista de Datos', jd:'SQL, Python, PowerBI y storytelling', estado:'entrevista', ats:62, rec:['Añadir PowerBI en skills','Reforzar storytelling','Camino formativo: PowerBI + Storytelling']}
+const colors=[
+  {hex:'#000000',name:'Negro'},{hex:'#0A2463',name:'Navy'},{hex:'#6B2737',name:'Vino'},{hex:'#1B4D3E',name:'Bosque'},{hex:'#9C4A3A',name:'Terracota'},
+  {hex:'#C98A15',name:'Mostaza'},{hex:'#2B2D42',name:'Grafito'},{hex:'#3A7CA5',name:'Acero'},{hex:'#6A4C93',name:'Violeta'},{hex:'#2E6B30',name:'Selva'}
 ];
-function render(){
-  const c=document.getElementById('vacList'); c.innerHTML='';
+const sw=document.getElementById('swatches');
+colors.forEach(c=>{
+  const b=document.createElement('div'); b.className='swatch'; b.style.background=c.hex; b.title=c.name;
+  b.onclick=()=>{setColor(c.hex); document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('active')); b.classList.add('active');};
+  sw.appendChild(b);
+});
+let pendingDel=null;
+let exps=[
+  {role:'Senior Data Engineer',company:'HealthData Labs',from:'2022-01',to:'',present:true,scope:'Plataforma de datos',bullets:['Reduje latencia 24h→15min','Bajé costos 38%']},
+  {role:'Data Engineer',company:'Banco Nube',from:'2020-03',to:'2022-01',present:false,scope:'',bullets:['Modelo riesgo usado por 12 analistas']}
+];
+let vacancies=[
+  {id:'vac_001',empresa:'TechCorp',rol:'Data Engineer',jd:'Python, Spark, Airflow y Snowflake',ats:68,rec:['Añadir Airflow en bullets','Mover Snowflake a skills','Camino formativo: dbt'],estado:'enviado'},
+  {id:'vac_823e64',empresa:'Bancolombia',rol:'Analista de Datos',jd:'SQL, Python, PowerBI y storytelling',ats:62,rec:['Añadir PowerBI','Reforzar storytelling','Camino formativo: PowerBI'],estado:'entrevista'}
+];
+function setColor(c){document.getElementById('colorVal').textContent=c; document.getElementById('colorPick').value=c; document.documentElement.style.setProperty('--accent',c); document.getElementById('preview').style.setProperty('--accent',c)}
+function setTitleFont(v){if(v) document.getElementById('fontTitle').value=v; updateFonts();}
+function updateFonts(){
+  const t=document.getElementById('fontTitle').value, b=document.getElementById('fontBody').value;
+  document.getElementById('preview').style.setProperty('--font-title', t.includes('Garamond')?'Garamond, Georgia, serif': t.includes('Calibri')?'Calibri, Arial, sans-serif':"'Helvetica Neue',Helvetica,Arial,sans-serif");
+  document.getElementById('preview').style.setProperty('--font-body', b.includes('Garamond')?'Garamond, Georgia, serif': b.includes('Calibri')?'Calibri, Arial, sans-serif':"'Helvetica Neue',Helvetica,Arial,sans-serif");
+  const rec=document.getElementById('fontRec');
+  if(t.includes('Garamond')&&b.includes('Helvetica')) rec.textContent='Recomendación: Garamond título + Helvetica cuerpo — ideal ejecutivo.';
+  else if(t.includes('Helvetica')&&b.includes('Calibri')) rec.textContent='Recomendación: Helvetica título + Calibri cuerpo — ideal tech ATS.';
+  else rec.textContent='Recomendación: mantén contraste título/cuerpo, evita dos serif juntas.';
+}
+function setSpacing(m){const p=document.getElementById('preview'); p.style.lineHeight=m==='compact'?'1.2':m==='amplio'?'1.7':'1.33'; p.style.padding=m==='compact'?'12px':m==='amplio'?'24px':'16px'}
+function togglePresent(){const c=document.getElementById('expPresent').checked; document.getElementById('expTo').disabled=c; document.getElementById('expTo').style.opacity=c?.5:1}
+function renderExps(){
+  const list=document.getElementById('expList'), empty=document.getElementById('expEmpty'), pv=document.getElementById('pvExp');
+  if(exps.length===0){empty.style.display='block'; pv.innerHTML='<span class="muted">Sin experiencia aún</span>'; return} else empty.style.display='none';
+  list.innerHTML=''; pv.innerHTML='';
+  let warn='';
+  exps.forEach((e,i)=>{
+    const d=document.createElement('div'); d.style.cssText='border:1px solid #E8E0D6;border-radius:8px;padding:10px;margin:8px 0;background:#FFFEFB;font-size:12px';
+    d.innerHTML=`<b>${e.role}</b> | ${e.company} — ${e.from} → ${e.present?'Presente':e.to} <span class="muted">${e.scope||''}</span><br>${e.bullets.join(' • ')} <a href="#" onclick="delExp(${i});return false" style="color:#8B1E1E;margin-left:8px">borrar</a>`;
+    list.appendChild(d);
+    const p=document.createElement('div'); p.innerHTML=`<b>${e.role}</b> | ${e.company} — ${e.from} → ${e.present?'Presente':e.to}`; pv.appendChild(p);
+  });
+  // soft warning solapamiento
+  for(let i=0;i<exps.length;i++) for(let j=i+1;j<exps.length;j++){
+    const a=exps[i], b=exps[j];
+    const aEnd=a.present? '9999-12' : a.to, bEnd=b.present? '9999-12' : b.to;
+    if(a.from <= bEnd && b.from <= aEnd) warn='Info: tienes roles solapados ('+a.role+' y '+b.role+') — ¿es correcto? (control total tuyo)';
+  }
+  document.getElementById('expWarn').textContent=warn;
+}
+function addExp(){
+  const role=document.getElementById('expRole').value, company=document.getElementById('expCompany').value;
+  if(!role||!company) return alert('Rol y empresa requeridos');
+  exps.push({role,company,from:document.getElementById('expFrom').value,to:document.getElementById('expTo').value,present:document.getElementById('expPresent').checked,scope:document.getElementById('expScope').value,bullets:document.getElementById('expBullets').value.split('\n').filter(Boolean)});
+  renderExps(); document.getElementById('expRole').value=''; document.getElementById('expCompany').value='';
+}
+function delExp(i){exps.splice(i,1); renderExps();}
+function saveBase(){
+  document.getElementById('pvName').textContent=(document.getElementById('inName').value||'TU NOMBRE').toUpperCase();
+  document.getElementById('pvTitle').textContent=(document.getElementById('inTitle').value||'TU TÍTULO').toUpperCase();
+  document.getElementById('pvContact').textContent=document.getElementById('inEmail').value+' | '+document.getElementById('inLocation').value;
+  document.getElementById('dummyBadge').style.display='none';
+  document.getElementById('saveMsg').textContent='Guardado — preview actualizado (dummy reemplazado)';
+  setTimeout(()=>document.getElementById('saveMsg').textContent='',2000);
+}
+function renderVac(){
+  const c=document.getElementById('vacList'), empty=document.getElementById('vacEmpty');
+  if(vacancies.length===0){empty.style.display='block'; c.innerHTML=''; return} else empty.style.display='none';
+  c.innerHTML='';
   vacancies.forEach(v=>{
     const d=document.createElement('div'); d.className='vac-card';
     d.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><b>${v.empresa} — ${v.rol}</b><span class="status ${v.estado}">${v.estado}</span></div>
       <div class="muted" style="font-size:12px">${v.jd}</div>
-      <div class="progress"><i style="width:${v.ats}%"></i></div>
-      <div class="muted">ATS ${v.ats}%</div>
-      <div class="rec"><b>Recomendaciones:</b><br>${v.rec.map(r=>'• '+r).join('<br>')}<br><span class="muted">Camino formativo: partner virtual futuro</span></div>
-      <div class="row">
-        <button class="small" onclick="applyOneClick('${v.id}')">Aplicar en 1 clic</button>
-        <button class="small secondary" onclick="updateStatus('${v.id}','entrevista')">→ Entrevista</button>
-        <button class="small secondary" onclick="updateStatus('${v.id}','rechazado')">Rechazado</button>
-      </div>`;
+      <div class="progress"><i style="width:${v.ats}%"></i></div><div class="muted">ATS ${v.ats}% — revisión válida vs tu CV</div>
+      <div class="rec"><b>Recomendaciones válidas:</b><br>${v.rec.map(r=>'• '+r).join('<br>')}</div>
+      <div class="row"><button class="small" onclick="applyVac('${v.id}')">Revisar → Implementar auto</button>
+      <button class="small secondary" onclick="updateVac('${v.id}','entrevista')">→ Entrevista</button>
+      <button class="small secondary" style="color:#8B1E1E" onclick="askDel('${v.id}')">Borrar</button></div>`;
     c.appendChild(d);
   });
 }
 function addVacancy(){
-  const empresa=document.getElementById('vEmpresa').value||'Empresa Demo';
-  const rol=document.getElementById('vRol').value||'Rol Demo';
-  const jd=document.getElementById('vJD').value||'Descripción pegada';
-  vacancies.push({id:'vac_'+Date.now(),empresa,rol,jd,estado:'enviado',ats: Math.floor(60+Math.random()*20), rec:['Añadir keyword de la vacante','Reordenar skills','Camino formativo sugerido']});
-  render();
+  const empresa=document.getElementById('vEmpresa').value||'Empresa Demo', rol=document.getElementById('vRol').value||'Rol Demo', jd=document.getElementById('vJD').value||'Pega JD';
+  // recomendación válida simple: extraer keywords faltantes vs skills dummy
+  const skills=['Python','SQL','Spark','Airflow','Snowflake','PowerBI'];
+  const missing=skills.filter(k=>!jd.toLowerCase().includes(k.toLowerCase())).slice(0,2);
+  const rec = missing.length? missing.map(k=>'Añadir '+k+' (aparece en JD, falta en tu CV)').concat('Camino formativo: '+missing.join(', ')) : ['CV ya cubre keywords clave','Camino formativo: profundizar storytelling'];
+  vacancies.push({id:'vac_'+Date.now(),empresa,rol,jd,ats:Math.floor(58+Math.random()*18),rec,estado:'enviado'});
+  renderVac();
 }
-function updateStatus(id,estado){const v=vacancies.find(x=>x.id===id); if(v){v.estado=estado; render();}}
-function applyOneClick(id){
-  const v=vacancies.find(x=>x.id===id);
-  if(v){v.ats=Math.min(95,v.ats+12); v.rec=['✓ Aplicado: CV regenerado todo negro sin watermark']; alert('CV regenerado para '+v.empresa+' — ATS ahora '+v.ats+'%'); render();}
-}
-function setColor(c){document.getElementById('colorVal').textContent=c; document.documentElement.style.setProperty('--accent',c); document.getElementById('preview').style.setProperty('--accent',c)}
-function setFont(f){document.getElementById('preview').style.fontFamily=f}
-function setSpacing(m){const p=document.getElementById('preview'); p.style.lineHeight = m==='compact'?'1.2':m==='amplio'?'1.7':'1.33'; p.style.padding = m==='compact'?'12px':m==='amplio'?'24px':'16px'}
-render();
+function applyVac(id){const v=vacancies.find(x=>x.id===id); if(v){v.ats=Math.min(95,v.ats+10); v.rec=['✓ Implementado auto: CV regenerado todo negro']; alert('Cambios aplicados a CV para '+v.empresa); renderVac();}}
+function updateVac(id,estado){const v=vacancies.find(x=>x.id===id); if(v){v.estado=estado; renderVac();}}
+function askDel(id){pendingDel=id; const v=vacancies.find(x=>x.id===id); document.getElementById('delMsg').textContent='¿Borrar vacante "'+v.empresa+' — '+v.rol+'" y sus aplicaciones? No se puede deshacer.'; document.getElementById('delModal').style.display='flex';}
+function closeDel(){document.getElementById('delModal').style.display='none'; pendingDel=null}
+function confirmDel(){if(pendingDel){vacancies=vacancies.filter(x=>x.id!==pendingDel); renderVac(); closeDel();}}
+renderExps(); renderVac(); setColor('#000000'); updateFonts();
 </script>
 </body>
 </html>
