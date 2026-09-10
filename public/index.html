@@ -261,6 +261,7 @@ function renderVac(){
       <div class="progress"><i style="width:${v.ats}%"></i></div><div class="muted">ATS ${v.ats}% — revisión válida vs tu CV</div>
       <div class="rec"><b>Recomendaciones válidas:</b><br>${v.rec.map(r=>'• '+r).join('<br>')}</div>
       <div class="row"><button class="small" onclick="applyVac('${v.id}')">Revisar → Implementar auto</button>
+      <button class="small secondary" onclick="genCover('${v.id}')">✉️ Cover Letter</button>
       <button class="small secondary" onclick="updateVac('${v.id}','entrevista')">→ Entrevista</button>
       <button class="small secondary" style="color:#8B1E1E" onclick="askDel('${v.id}')">Borrar</button></div>`;
     c.appendChild(d);
@@ -280,6 +281,19 @@ function updateVac(id,estado){const v=vacancies.find(x=>x.id===id); if(v){v.esta
 function askDel(id){pendingDel=id; const v=vacancies.find(x=>x.id===id); document.getElementById('delMsg').textContent='¿Borrar vacante "'+v.empresa+' — '+v.rol+'" y sus aplicaciones? No se puede deshacer.'; document.getElementById('delModal').style.display='flex';}
 function closeDel(){document.getElementById('delModal').style.display='none'; pendingDel=null}
 function confirmDel(){if(pendingDel){vacancies=vacancies.filter(x=>x.id!==pendingDel); renderVac(); closeDel();}}
+function genCover(id){
+  const v=vacancies.find(x=>x.id===id);
+  if(!v) return;
+  const name=document.getElementById('inName').value||'Laura Gómez';
+  const title=document.getElementById('inTitle').value||'Ingeniera de Datos';
+  const preview=`Estimado equipo de ${v.empresa},\n\nMe postulo a ${v.rol}. ${v.jd.slice(0,120)}...\n\nSoy ${title} (${name}) y puedo aportar valor directo en esos puntos.\n\nCordialmente,\n${name}`;
+  if(confirm('Generar Cover Letter personalizada para '+v.empresa+' — '+v.rol+'?\n\nPreview:\n'+preview+'\n\n¿Generar PDF?')){
+    alert('✓ Cover Letter generada: letters/'+v.id+'/Carta_Presentacion_'+v.id+'_'+name.replace(/\s/g,'_')+'.pdf\n\nEn Pro se genera PDF real vía: python manage.py cover-letter --app <id>  o  python generate_cover_letter.py --vacancy '+v.id);
+    // Simular registro en UI
+    v.cover_letter=true;
+    renderVac();
+  }
+}
 renderExps(); renderVac(); setColor('#000000'); updateFonts();
 </script>
 </body>

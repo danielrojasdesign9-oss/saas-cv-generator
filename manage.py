@@ -1,12 +1,13 @@
 ﻿#!/usr/bin/env python3
 """
-Helper simple para el sistema de gestiÃ³n por vacante.
+Helper simple para el sistema de gestión por vacante.
 Uso:
   python manage.py add-vacancy --empresa "X" --rol "Y" --jd "..." 
   python manage.py list
   python manage.py update-status --app app_001 --estado entrevista
   python manage.py recommend --app app_001   # imprime recomendaciones (simuladas, la IA real las genera)
   python manage.py apply-one-click --app app_001  # marca como aplicado y sugiere regenerar CV
+  python manage.py cover-letter --app app_001 --lang es  # genera cover letter personalizada por vacante
 """
 import json, os, uuid, argparse
 from datetime import date
@@ -60,7 +61,16 @@ def apply_one_click(app_id):
             save(APP, apps)
             print(f"[OK] {app_id} marcado como aplicado en 1 clic. Regenera el CV vinculado (cv_id={a['cv_id']}).")
             return
-    print(f"[WARN] no se encontrÃ³ {app_id}")
+    print(f"[WARN] no se encontró {app_id}")
+
+def cover_letter(app_id, lang="es"):
+    import subprocess, sys
+    apps = load(APP)
+    a = next((x for x in apps if x["id"]==app_id), None)
+    if not a:
+        print(f"[WARN] no se encontró {app_id}"); return
+    vac_id = a["vacancy_id"]
+    subprocess.run([sys.executable, os.path.join(BASE, "generate_cover_letter.py"), "--vacancy", vac_id, "--lang", lang])
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
@@ -70,10 +80,12 @@ if __name__ == "__main__":
     p2 = sub.add_parser("update-status"); p2.add_argument("--app", required=True); p2.add_argument("--estado", required=True, choices=["enviado","visto","entrevista","rechazado","oferta"])
     p3 = sub.add_parser("recommend"); p3.add_argument("--app", required=True)
     p4 = sub.add_parser("apply-one-click"); p4.add_argument("--app", required=True)
+    p5 = sub.add_parser("cover-letter"); p5.add_argument("--app", required=True); p5.add_argument("--lang", default="es", choices=["es","en"])
     args = ap.parse_args()
     if args.cmd == "add-vacancy": add_vacancy(args.empresa, args.rol, args.jd, args.url)
     elif args.cmd == "list": list_all()
     elif args.cmd == "update-status": update_status(args.app, args.estado)
     elif args.cmd == "recommend": recommend(args.app)
     elif args.cmd == "apply-one-click": apply_one_click(args.app)
+    elif args.cmd == "cover-letter": cover_letter(args.app, args.lang)
     else: ap.print_help()

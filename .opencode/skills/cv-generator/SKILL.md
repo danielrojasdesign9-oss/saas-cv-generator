@@ -56,13 +56,15 @@ Move in phases. Ask a few questions at a time; confirm before writing.
 - Ask what to change; edit the relevant JSON fields in BOTH languages; re-validate; regenerate; offer commit/push.
 - For **batch updates** (Pro): apply the same addition (skill/project/cert) to all selected CVs at once.
 
-## Gestión por vacante (tracking + 1 clic)
-Este proyecto incluye `data/vacancies.json` y `data/applications.json` + `manage.py`:
+## Gestión por vacante (tracking + 1 clic + cover letters)
+Este proyecto incluye `data/vacancies.json` y `data/applications.json` + `manage.py` + `generate_cover_letter.py`:
 - `python manage.py add-vacancy --empresa X --rol Y --jd "..." --url ...`
 - `python manage.py list` / `update-status --app app_001 --estado entrevista`
 - `recommend --app app_001` muestra recomendaciones ATS + camino formativo (la IA las genera)
 - `apply-one-click --app app_001` marca como aplicado y el siguiente `generate_cv.py` regenera el CV vinculado
-- Flujo Pro: pegar vacante → IA adapta CV (keywords ATS, reordena skills) → registra email manual (sin OAuth en v1) → cambia estado → "Aplicar en 1 clic"
+- `cover-letter --app app_001 --lang es` genera carta personalizada por vacante vía `generate_cover_letter.py` (usa `templates/letter_template.html` + `data/cv_*.json` + `vacancies.json`; guarda en `letters/{vacancy_id}/`)
+- También directo: `python generate_cover_letter.py --vacancy vac_001 --lang es`
+- Flujo Pro: pegar vacante → IA adapta CV (keywords ATS, reordena skills) → registra email manual (sin OAuth en v1) → cambia estado → "Aplicar en 1 clic" + "Cover Letter" personalizada por vacante
 
 ## Recomendaciones ATS + camino formativo
 - Evalúa **ATS** (keywords faltantes, orden de secciones, densidad) y propone cambios concretos.

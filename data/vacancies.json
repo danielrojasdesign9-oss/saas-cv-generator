@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "id": "vac_001",
     "empresa": "TechCorp",
@@ -14,5 +14,13 @@
     "jd_text": "Requiere SQL, Python, PowerBI y storytelling",
     "url": "https://ejemplo.com/bancolombia",
     "creada_en": "2026-09-02"
+  },
+  {
+    "id": "vac_1d18f6",
+    "empresa": "Rappi",
+    "rol": "Product Designer",
+    "jd_text": "Design Systems, Figma, tokens, Storybook, IA",
+    "url": "https://ejemplo.com/rappi",
+    "creada_en": "2026-09-03"
   }
 ]

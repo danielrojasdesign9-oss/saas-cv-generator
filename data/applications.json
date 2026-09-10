@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "id": "app_001",
     "vacancy_id": "vac_001",
@@ -13,7 +13,8 @@
       "Mover 'Snowflake' a primera categorÃ­a de skills",
       "Camino formativo: dbt Analytics Engineering (partners futuros)"
     ],
-    "aplicado_1_clic": false
+    "aplicado_1_clic": false,
+    "cover_letter": "letters/vac_001/Carta_Presentacion_vac_001_Laura_Gómez.pdf"
   },
   {
     "id": "app_823e64",
@@ -30,5 +31,21 @@
       "Camino formativo: PowerBI + Storytelling con datos (partner virtual futuro)"
     ],
     "aplicado_1_clic": true
+  },
+  {
+    "aplicado_1_clic": true,
+    "id": "app_c9d9e4",
+    "vacancy_id": "vac_1d18f6",
+    "cv_id": "cv_001",
+    "recomendaciones": [
+      "Añadir Design Tokens",
+      "Incluir Storybook",
+      "Camino formativo: Design Systems con IA"
+    ],
+    "enviado_en": "2026-09-02",
+    "estado": "entrevista",
+    "email_enviado_a": "talento@rappi.com",
+    "ats_score": 58,
+    "cv_version": "Laura_Gomez_CV_ES.pdf"
   }
 ]
